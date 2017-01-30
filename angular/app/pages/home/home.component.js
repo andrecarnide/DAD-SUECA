@@ -23,8 +23,7 @@ HomeComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'app-home',
-        templateUrl: './home.component.html',
-        styleUrls: ['./home.component.css']
+        templateUrl: './home.component.html'
     }),
     __metadata("design:paramtypes", [authentication_service_1.AuthenticationService])
 ], HomeComponent);
