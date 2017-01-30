@@ -4,7 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var sha1 = require('sha1');
-var User = require('../angular/app/models/user');
+var User = require('./angular/app/models/user');
 var app_database_1 = require('./app.database');
 var Security = (function () {
     function Security() {
