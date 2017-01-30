@@ -59,8 +59,7 @@ MenuAsideComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'menu-aside',
-        templateUrl: './menu-aside.component.html',
-        styleUrls: ['./menu-aside.component.css']
+        templateUrl: './menu-aside.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router, authentication_service_1.AuthenticationService])
 ], MenuAsideComponent);
