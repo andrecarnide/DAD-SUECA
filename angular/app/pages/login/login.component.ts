@@ -10,8 +10,7 @@ declare const FB:any;
 @Component({
     moduleId: module.id,
     selector: 'app-home',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    templateUrl: './login.component.html'
 })
 
 export class LoginComponent {
