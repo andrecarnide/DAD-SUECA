@@ -15,8 +15,7 @@ PageNotFoundComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'app-home',
-        templateUrl: './pagenotfound.component.html',
-        styleUrls: ['./pagenotfound.component.css']
+        templateUrl: './pagenotfound.component.html'
     })
 ], PageNotFoundComponent);
 exports.PageNotFoundComponent = PageNotFoundComponent;
