@@ -4,8 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 @Component({
     moduleId: module.id,
     selector: '.userBox',
-    templateUrl: './user-box.component.html',
-    styleUrls: ['./user-box.component.css']
+    templateUrl: './user-box.component.html'
 })
 export class UserBoxComponent {
 
