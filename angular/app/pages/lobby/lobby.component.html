@@ -1,0 +1,89 @@
+<div class="box-header with-border">
+    <h3 class="box-title"><span class="fa fa-gamepad"></span> Lobby</h3>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-plus"></i>
+                    <h3 class="box-title">Create Game</h3>
+                </div>
+
+                <div class="box-body">
+                    <form #lobbyName="ngForm">
+                        <div class="input-group">
+                            <input type="text" name="name" placeholder="Lobby name" class="form-control"
+                                   required
+                                   [(ngModel)]="game.name"
+                                   #name="ngModel">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary btn-flat"
+                                        [disabled]="!lobbyName.form.valid" (click)="createGame()">Create</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-dot-circle-o"></i>
+
+                    <h3 class="box-title">My Games</h3>
+                </div>
+                <div class="box-body scroll">
+                    <table id="myGamesTable" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Game name</th>
+                            <th>Number of Players</th>
+                            <th>Option</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr lobby-table *ngFor="let game of myGames" [game]="game" [isOtherGame]="false"></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-circle-o"></i>
+
+                    <h3 class="box-title">Others Games</h3>
+                </div>
+                <div class="box-body scroll">
+                    <table id="otherGamesTable" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Game name</th>
+                            <th>Number of Players</th>
+                            <th>Option</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr lobby-table *ngFor="let game of otherGames" [game]="game" [isOtherGame]="true"></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,16 @@
+.scroll {
+    height: 125px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.left {
+    float: left;
+}
+

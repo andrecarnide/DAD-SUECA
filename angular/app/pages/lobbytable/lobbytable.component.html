@@ -1,0 +1,17 @@
+<td>{{ game.creatorUsername }}</td>
+<td>{{ game.gameName }}</td>
+<td>{{ game.players.length }}/4</td>
+<td>
+    <button *ngIf="!isOtherGame" (click)="startGame()" type="button" class="btn btn-primary btn-xs"
+            [disabled]="setStartGameDisabled()">Start
+    </button>
+    <button *ngIf="!isOtherGame" (click)="cancelGame()" type="button" class="btn btn-danger btn-xs">Cancel</button>
+    <button *ngIf="isOtherGame" (click)="joinGame()" type="button" class="btn btn-warning btn-xs"
+            [disabled]="setJoinGameDisable()">Join
+    </button>
+</td>
+
+
+
+
+

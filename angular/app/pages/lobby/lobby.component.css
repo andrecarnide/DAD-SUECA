@@ -1,0 +1,9 @@
+table, thead, tr, th{
+    text-align: center;
+}
+
+.scroll {
+    height: 250px;
+    overflow: scroll;
+    overflow-x: hidden;
+}

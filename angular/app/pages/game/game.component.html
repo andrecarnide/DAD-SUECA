@@ -1,0 +1,115 @@
+<div class="box-header with-border">
+    <h3 class="box-title"><span class="fa fa-users"></span> Sueca Game</h3>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-thumbs-up"></i>
+
+                    <h3 class="box-title">Trump Suit</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12 center">
+                        <img [src]="deck.trumpSuit">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-hand-pointer-o"></i>
+
+                    <h3 class="box-title">Table</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <!--<div class="left" *ngFor="let card of deck.cards"><img [src]="card.getImageName()"></div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+
+                    <h3 class="box-title">Player 1</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="left" *ngFor="let card of deck.cardsPlayer1"><img [src]="card.getImageName()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+                    <h3 class="box-title">Player 2</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="left" *ngFor="let card of deck.cardsPlayer2"><img [src]="card.getImageName()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+
+                    <h3 class="box-title">Player 3</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="left" *ngFor="let card of deck.cardsPlayer3"><img [src]="card.getImageName()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+
+                    <h3 class="box-title">Player 4</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="left" *ngFor="let card of deck.cardsPlayer4"><img [src]="card.getImageName()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<private-chat></private-chat>

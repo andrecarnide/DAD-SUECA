@@ -1,0 +1,10 @@
+table, thead, tr, th{
+    text-align: center;
+}
+
+.scroll {
+    height: 500px;
+    overflow: scroll;
+}
+
+
