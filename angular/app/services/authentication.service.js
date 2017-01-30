@@ -20,7 +20,7 @@ var AuthenticationService = (function () {
     }
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
-        return this.http.post('http://localhost:7777/api/v1/login', { username: username, password: password })
+        return this.http.post('http://localhost:8080/api/v1/login', { username: username, password: password })
             .map(function (response) {
             _this.user = response.json();
             return _this.user;
@@ -32,7 +32,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService.prototype.loginFace = function () {
         var _this = this;
-        return this.http.post('http://localhost:7777/api/v1/facebook', {})
+        return this.http.post('http://localhost:8080/api/v1/facebook', {})
             .map(function (response) {
             _this.user = response.json();
             return _this.user;
@@ -45,7 +45,7 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.logout = function () {
         var _this = this;
         var options = this.buildHeaders();
-        return this.http.post('http://localhost:7777/api/v1/logout', options)
+        return this.http.post('http://localhost:8080/api/v1/logout', options)
             .map(function (response) {
             response.json();
             _this.user = null;
@@ -57,7 +57,7 @@ var AuthenticationService = (function () {
         });
     };
     AuthenticationService.prototype.register = function (name, username, email, password, avatar) {
-        return this.http.post('http://localhost:7777/api/v1/register', {
+        return this.http.post('http://localhost:8080/api/v1/register', {
             name: name,
             username: username,
             email: email,
