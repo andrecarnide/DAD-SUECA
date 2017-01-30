@@ -19,7 +19,7 @@ export class WebSocketService {
 
     constructor(private http: Http) {
         if (!this.socket) {
-            this.socket = io(`http://localhost:7777`);
+            this.socket = io(`http://localhost:8080`);
             //this.socket = io(`http://${window.location.hostname}:${window.location.port}`);
         }
     }
