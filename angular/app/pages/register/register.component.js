@@ -49,8 +49,7 @@ RegisterComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'app-home',
-        templateUrl: './register.component.html',
-        styleUrls: ['./register.component.css']
+        templateUrl: './register.component.html'
     }),
     __metadata("design:paramtypes", [websocket_service_1.WebSocketService, authentication_service_1.AuthenticationService, router_1.Router])
 ], RegisterComponent);
