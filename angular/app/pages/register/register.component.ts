@@ -10,8 +10,7 @@ import { User }    from '../../models/user';
 @Component({
     moduleId: module.id,
     selector: 'app-home',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+    templateUrl: './register.component.html'
 })
 
 export class RegisterComponent {
