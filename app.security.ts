@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const sha1 = require('sha1');
-const User = require('../angular/app/models/user');
+const User = require('./angular/app/models/user');
 
 import {databaseConnection as database} from './app.database';
 
