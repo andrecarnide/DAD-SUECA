@@ -24,8 +24,7 @@ UserBoxComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: '.userBox',
-        templateUrl: './user-box.component.html',
-        styleUrls: ['./user-box.component.css']
+        templateUrl: './user-box.component.html'
     }),
     __metadata("design:paramtypes", [authentication_service_1.AuthenticationService])
 ], UserBoxComponent);
