@@ -21,8 +21,7 @@ AppHeaderComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'app-header',
-        templateUrl: './app-header.component.html',
-        styleUrls: ['./app-header.component.css']
+        templateUrl: './app-header.component.html'
     }),
     __metadata("design:paramtypes", [authentication_service_1.AuthenticationService])
 ], AppHeaderComponent);
