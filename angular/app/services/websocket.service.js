@@ -19,7 +19,7 @@ var WebSocketService = (function () {
     function WebSocketService(http) {
         this.http = http;
         if (!this.socket) {
-            this.socket = io("http://localhost:7777");
+            this.socket = io("http://localhost:8080");
         }
     }
     /////////////////////////////////////////////////////////////////////////
