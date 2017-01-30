@@ -85,8 +85,7 @@ LoginComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'app-home',
-        templateUrl: './login.component.html',
-        styleUrls: ['./login.component.css']
+        templateUrl: './login.component.html'
     }),
     __metadata("design:paramtypes", [authentication_service_1.AuthenticationService, router_1.Router, websocket_service_1.WebSocketService])
 ], LoginComponent);
