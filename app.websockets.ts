@@ -1,5 +1,10 @@
 const io = require('socket.io');
 
+import { Player } from "./game/player";
+import {PlayerGame} from "./game/playerGame";
+import { Card } from "./game/card";
+
+
 export class WebSocketServer {
 
     public io: any;
@@ -34,16 +39,55 @@ export class WebSocketServer {
 
             client.on('refresh', (data) => this.io.emit('refresh'));
 
+            client.on('cancel_game', (game) => {
+                let date = new Date();
+                let dateFormat = [date.getDate(),  date.getMonth() + 1, date.getFullYear()].join('/') + ' - ' +
+                    [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+
+                client.broadcast.emit('players', '['+dateFormat+'] '+client.player.username+ ' canceled the game '+game.gameName+'.');
+            });
+
+
+            client.on('new_game', (data) => {
+                let playerCards: Card[] = data.game.deck.cardsPlayer1;
+                let playerOrder: number = 1;
+                let playerTeam: string = 'A';
+
+                let newPlayer = new PlayerGame(data.user._id, data.game._id, playerCards, playerOrder, playerTeam);
+                client.player.games.push(newPlayer);
+
+                client.join(data.game._id);
+                client.broadcast.emit('new_game', data.game);
+
+                let date = new Date();
+                let dateFormat = [date.getDate(),  date.getMonth() + 1, date.getFullYear()].join('/') + ' - ' +
+                    [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
+
+                client.broadcast.emit('players', '['+dateFormat+'] A new game '+data.game.gameName+' has been created by '+client.player.username+'.');
+            });
+
             client.on('join_game', (data) => {
-                let gameJoined = {
-                    //board: new Tabuleiro(),
-                    score: 0,
-                    defeated: 0,
-                    playerTurn: 0,
-                    order: {},
-                    opponents: {}
-                };
-                client.player.games[data.game._id] = gameJoined;
+                let playerCards: Card[] = [];
+                let playerOrder: number = 0;
+                let playerTeam: string = '';
+
+                if(data.game.players.length == 2){
+                    playerCards = data.game.deck.cardsPlayer2;
+                    playerOrder = 3;
+                    playerTeam = 'A'
+                }else if(data.game.players.length == 3){
+                    playerCards = data.game.deck.cardsPlayer3;
+                    playerOrder = 2;
+                    playerTeam = 'B';
+                }else if(data.game.players.length == 4) {
+                    playerCards = data.game.deck.cardsPlayer4;
+                    playerOrder = 4;
+                    playerTeam = 'B'
+                }
+
+                let playerJoined = new PlayerGame(data.user._id,data.game._id, playerCards, playerOrder, playerTeam);
+                client.player.games.push(playerJoined);
+
                 client.join(data.game._id);
                 this.io.emit('update_game', { gameId: data.game._id , player: data.player });
 
@@ -54,42 +98,22 @@ export class WebSocketServer {
                 client.broadcast.emit('players', '['+dateFormat+'] '+client.player.username+ ' joined the game '+data.game.gameName+'.');
             });
 
-            client.on('new_game', (game) => {
-                let newGame = {
-                    //board: new Tabuleiro(),
-                    score: 0,
-                    defeated: 0,
-                    playerTurn: 0,
-                    order: {},
-                    opponents: {}
-                };
-                client.player.games[game._id] = newGame;
-                client.join(game._id);
-                client.broadcast.emit('new_game', game);
-
-                let date = new Date();
-                let dateFormat = [date.getDate(),  date.getMonth() + 1, date.getFullYear()].join('/') + ' - ' +
-                    [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
-
-                client.broadcast.emit('players', '['+dateFormat+'] A new game '+game.gameName+' has been created by '+client.player.username+'.');
+            client.on('private_game', (privateGameId) => {
+                client.player.games.forEach( privateGame => {
+                    if(privateGame.gameId == privateGameId){
+                        this.io.to(privateGameId).emit('private_game', privateGame);
+                        console.log(privateGame)
+                    }
+                });
             });
 
-            client.on('cancel_game', (game) => {
-                let date = new Date();
-                let dateFormat = [date.getDate(),  date.getMonth() + 1, date.getFullYear()].join('/') + ' - ' +
-                    [date.getHours(), date.getMinutes(), date.getSeconds()].join(':');
-
-                client.broadcast.emit('players', '['+dateFormat+'] '+client.player.username+ ' canceled the game '+game.gameName+'.');
+            client.on('play_card', (data) => {
+                this.io.to(data.privateGame).emit('play_card', data);
             });
 
             client.on('start_game', (game) => {
                 this.io.to(game._id).emit('start_game', game);
-                this.io.to(game._id).emit('number_of_players', game.players.length);
-            });
-
-            client.on('number_of_players', (game) => {
-                client.player.games[game._id].numberOfPlayers = game.players.length;
-                //socket.player.games[game._id].nTiros = 2 * (game.players.length - 1);
+                this.io.to(game._id).emit('trump_suit', game.deck.trumpSuit);
             });
         });
     };
@@ -99,12 +123,3 @@ export class WebSocketServer {
     }; 
 }
 
-export class Player {
-    public username: String;
-    public games;
-
-    constructor() {
-        this.username = "";
-        this.games = {};
-    }
-};

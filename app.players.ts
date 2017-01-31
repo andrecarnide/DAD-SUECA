@@ -112,23 +112,6 @@ export class Player {
             .catch(err => this.handleError(err, response, next));
     };
 
-    public face = (request: any, response: any, next: any) => {
-        var player = request.body;
-        if(player !== undefined){
-            player = {};
-            player.name = request.body.first_name,
-                player.email = request.body.email,
-                player.username = request.body.name,
-                player.totalVictories = 0,
-                player.totalScore = 0,
-            player.token = request.body.token
-        }
-        database.db.collection('players')
-            .insertOne(player)
-            .then(result => this.returnPlayer(result.insertedId, response, next))
-            .catch(err => this.handleError(err, response, next));
-    }
-
     public deletePlayer = (request: any, response: any, next: any) => {
         var id = new mongodb.ObjectID(request.params.id);
         database.db.collection('players')
@@ -199,7 +182,6 @@ export class Player {
         server.post(settings.prefix + 'players', settings.security.authorize, this.createPlayer);
         server.del(settings.prefix + 'players/:id', settings.security.authorize, this.deletePlayer);
         server.post(settings.prefix + 'register', this.register);
-        server.post(settings.prefix + 'facebook', this.face);
         console.log("Players routes registered");
     };
 }

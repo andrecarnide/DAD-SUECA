@@ -1,7 +1,7 @@
 "use strict";
 var mongodb = require('mongodb');
 var util = require('util');
-var app_database_1 = require('./app.database');
+var app_database_1 = require("./app.database");
 var Game = (function () {
     function Game() {
         var _this = this;
@@ -148,47 +148,6 @@ var Game = (function () {
                 .then(function (result) { return _this.returnGame(id, response, next); })
                 .catch(function (err) { return _this.handleError(err, response, next); });
         };
-        this.updateGameScore = function (request, response, next) {
-            var gameId = new mongodb.ObjectID(request.params.gameId);
-            var userId = request.params.userId;
-            if (gameId === undefined) {
-                response.send(400, 'No game data');
-                return next();
-            }
-            app_database_1.databaseConnection.db.collection('games')
-                .updateOne({
-                _id: gameId, "players.player": userId
-            }, { $set: { "players.$.score": request.body.score } })
-                .then(function (result) { return _this.returnGame(gameId, response, next); })
-                .catch(function (err) { return _this.handleError(err, response, next); });
-        };
-        this.updateGameVictory = function (request, response, next) {
-            var gameId = new mongodb.ObjectID(request.params.gameId);
-            var userId = request.params.userId;
-            var time = new Date();
-            var dformat = [time.getDate(),
-                time.getMonth() + 1,
-                time.getFullYear()].join('/') + ' ' +
-                [time.getHours(),
-                    time.getMinutes(),
-                    time.getSeconds()].join(':');
-            if (gameId === undefined) {
-                response.send(400, 'No game data');
-                return next();
-            }
-            app_database_1.databaseConnection.db.collection('games')
-                .updateOne({
-                _id: gameId, "players.player": userId
-            }, { $set: {
-                    state: 'ended',
-                    winner: request.body.username,
-                    gameEnd: dformat,
-                    "players.$.score": request.body.score
-                }
-            })
-                .then(function (result) { return _this.returnGame(gameId, response, next); })
-                .catch(function (err) { return _this.handleError(err, response, next); });
-        };
         this.getPlayedGames = function (request, response, next) {
             app_database_1.databaseConnection.db.collection('games')
                 .find({ $or: [{ state: 'ended' }, { state: 'playing' }] })
@@ -208,8 +167,6 @@ var Game = (function () {
             server.post(settings.prefix + 'games', settings.security.authorize, _this.createGame);
             server.put(settings.prefix + 'joingame/:id', settings.security.authorize, _this.joinGame);
             server.put(settings.prefix + 'games/:id/cancel', settings.security.authorize, _this.cancelGame);
-            server.put(settings.prefix + 'games/:gameId/updatescore/:userId', settings.security.authorize, _this.updateGameScore);
-            server.put(settings.prefix + 'games/:gameId/updatevictory/:userId', settings.security.authorize, _this.updateGameVictory);
             server.put(settings.prefix + 'gamestate/:id', settings.security.authorize, _this.updateStateGame);
             server.put(settings.prefix + 'games/:id', settings.security.authorize, _this.updateGame);
             server.del(settings.prefix + 'games/:id', settings.security.authorize, _this.deleteGame);

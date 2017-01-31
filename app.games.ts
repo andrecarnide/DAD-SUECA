@@ -162,52 +162,6 @@ export class Game {
             .catch(err => this.handleError(err, response, next));
     };
 
-    public updateGameScore =  (request: any, response: any, next: any) => {
-        const gameId = new mongodb.ObjectID(request.params.gameId);
-        const userId = request.params.userId;
-
-        if (gameId === undefined) {
-            response.send(400, 'No game data');
-            return next();
-        }
-        database.db.collection('games')
-            .updateOne({
-                _id: gameId, "players.player": userId
-            }, { $set: { "players.$.score": request.body.score }})
-            .then(result => this.returnGame(gameId, response, next))
-            .catch(err => this.handleError(err, response, next));
-    };
-
-    public updateGameVictory =  (request: any, response: any, next: any) => {
-        const gameId = new mongodb.ObjectID(request.params.gameId);
-        const userId = request.params.userId;
-
-        let time = new Date();
-        let dformat = [time.getDate(),
-                time.getMonth()+1,
-                time.getFullYear()].join('/')+' '+
-            [time.getHours(),
-                time.getMinutes(),
-                time.getSeconds()].join(':');
-
-        if (gameId === undefined) {
-            response.send(400, 'No game data');
-            return next();
-        }
-        database.db.collection('games')
-            .updateOne({
-                _id: gameId, "players.player": userId
-            }, { $set: {
-                state: 'ended',
-                winner: request.body.username,
-                gameEnd: dformat,
-                "players.$.score": request.body.score
-            }
-            })
-            .then(result => this.returnGame(gameId, response, next))
-            .catch(err => this.handleError(err, response, next));
-    };
-
     public getPlayedGames = (request: any, response: any, next: any) => {
         database.db.collection('games')
             .find({$or:[{state:'ended'},{state:'playing'}]})
@@ -228,8 +182,6 @@ export class Game {
         server.post(settings.prefix + 'games', settings.security.authorize, this.createGame);
         server.put(settings.prefix + 'joingame/:id',settings.security.authorize, this.joinGame);
         server.put(settings.prefix + 'games/:id/cancel', settings.security.authorize, this.cancelGame);
-        server.put(settings.prefix + 'games/:gameId/updatescore/:userId',settings.security.authorize, this.updateGameScore);
-        server.put(settings.prefix + 'games/:gameId/updatevictory/:userId',settings.security.authorize, this.updateGameVictory);
         server.put(settings.prefix + 'gamestate/:id', settings.security.authorize, this.updateStateGame);
         server.put(settings.prefix + 'games/:id', settings.security.authorize, this.updateGame);
         server.del(settings.prefix + 'games/:id', settings.security.authorize, this.deleteGame);

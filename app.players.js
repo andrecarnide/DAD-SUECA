@@ -2,7 +2,7 @@
 var mongodb = require('mongodb');
 var util = require('util');
 var sha1 = require('sha1');
-var app_database_1 = require('./app.database');
+var app_database_1 = require("./app.database");
 var Player = (function () {
     function Player() {
         var _this = this;
@@ -106,22 +106,6 @@ var Player = (function () {
                 .then(function (result) { return _this.returnPlayer(result.insertedId, response, next); })
                 .catch(function (err) { return _this.handleError(err, response, next); });
         };
-        this.face = function (request, response, next) {
-            var player = request.body;
-            if (player !== undefined) {
-                player = {};
-                player.name = request.body.first_name,
-                    player.email = request.body.email,
-                    player.username = request.body.name,
-                    player.totalVictories = 0,
-                    player.totalScore = 0,
-                    player.token = request.body.token;
-            }
-            app_database_1.databaseConnection.db.collection('players')
-                .insertOne(player)
-                .then(function (result) { return _this.returnPlayer(result.insertedId, response, next); })
-                .catch(function (err) { return _this.handleError(err, response, next); });
-        };
         this.deletePlayer = function (request, response, next) {
             var id = new mongodb.ObjectID(request.params.id);
             app_database_1.databaseConnection.db.collection('players')
@@ -189,7 +173,6 @@ var Player = (function () {
             server.post(settings.prefix + 'players', settings.security.authorize, _this.createPlayer);
             server.del(settings.prefix + 'players/:id', settings.security.authorize, _this.deletePlayer);
             server.post(settings.prefix + 'register', _this.register);
-            server.post(settings.prefix + 'facebook', _this.face);
             console.log("Players routes registered");
         };
     }
