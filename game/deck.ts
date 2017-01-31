@@ -2,22 +2,21 @@ import { Card } from "./card";
 
 export class Deck {
 
-    public cards: Card[] = [];
     public cardsPlayer1: Card[] = [];
     public cardsPlayer2: Card[] = [];
     public cardsPlayer3: Card[] = [];
     public cardsPlayer4: Card[] = [];
-    public trumpSuit : string;
 
+    public cards: Card[] = [];
+    public trumpSuit: string = '';
 
-    public constructor(){
+    public constructor() {
         this.shuffle();
-        this.setTrumpSuit();
         this.distributionDeck();
+        this.setTrumpSuit();
     }
 
     public shuffle(): void {
-
         this.cards = [];
 
         for (let suitIndex = 0; suitIndex < 4; suitIndex++) {
@@ -42,14 +41,14 @@ export class Deck {
     }
 
     public distributionDeck(): void {
-        let cards_aux : Card[] = this.cards;
-        this.cardsPlayer1 = cards_aux.slice(0,10);
-        this.cardsPlayer2 = cards_aux.slice(10,20);
-        this.cardsPlayer3 = cards_aux.slice(20,30);
-        this.cardsPlayer4 = cards_aux.slice(30,40);
-     }
+        let cards_aux: Card[] = this.cards;
+        this.cardsPlayer1 = cards_aux.slice(0, 10);
+        this.cardsPlayer2 = cards_aux.slice(10, 20);
+        this.cardsPlayer3 = cards_aux.slice(20, 30);
+        this.cardsPlayer4 = cards_aux.slice(30, 40);
+    }
 
-     public setTrumpSuit(): void {
-         this.trumpSuit = this.cards[0].getImageName();
-     }
+    public setTrumpSuit(): void {
+        this.trumpSuit = this.cards[0].getImageName();
+    }
 }

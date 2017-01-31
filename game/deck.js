@@ -2,14 +2,15 @@
 var card_1 = require("./card");
 var Deck = (function () {
     function Deck() {
-        this.cards = [];
         this.cardsPlayer1 = [];
         this.cardsPlayer2 = [];
         this.cardsPlayer3 = [];
         this.cardsPlayer4 = [];
+        this.cards = [];
+        this.trumpSuit = '';
         this.shuffle();
-        this.setTrumpSuit();
         this.distributionDeck();
+        this.setTrumpSuit();
     }
     Deck.prototype.shuffle = function () {
         this.cards = [];

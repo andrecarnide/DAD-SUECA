@@ -1,4 +1,5 @@
 "use strict";
+var cardValue;
 (function (cardValue) {
     cardValue[cardValue["ACE"] = 0] = "ACE";
     cardValue[cardValue["TWO"] = 1] = "TWO";
@@ -10,5 +11,4 @@
     cardValue[cardValue["JACK"] = 7] = "JACK";
     cardValue[cardValue["QUEEN"] = 8] = "QUEEN";
     cardValue[cardValue["KING"] = 9] = "KING";
-})(exports.cardValue || (exports.cardValue = {}));
-var cardValue = exports.cardValue;
+})(cardValue = exports.cardValue || (exports.cardValue = {}));
