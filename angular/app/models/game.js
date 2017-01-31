@@ -7,8 +7,8 @@ var Game = (function () {
         this.creatorId = creatorId;
         this.gameStart = gameStart;
         this.gameEnd = gameEnd;
-        this.winner1 = winner1;
-        this.winner2 = winner2;
+        this.winner1 = winner1; // verificar
+        this.winner2 = winner2; // verificar
         this.players = players;
     }
     return Game;
