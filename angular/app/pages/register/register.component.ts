@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import { WebSocketService } from '../../services/websocket.service';
 
 import { User }    from '../../models/user';
-
 
 @Component({
     moduleId: module.id,
@@ -20,7 +18,7 @@ export class RegisterComponent {
     emailEqual: boolean;
     user = new User('', '', '', '', 0, 0, '', '', '', '');
 
-    constructor(private webSocketService: WebSocketService, private authenticationService: AuthenticationService, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private router: Router) {
     }
 
     register() {
@@ -34,7 +32,7 @@ export class RegisterComponent {
                     this.emailEqual = true;
                 } else {
                     this.isRegisterFailed = false;
-                    //this.webSocketService.sendRegisterMessage(registered);
+                    //this.gameService.sendRegisterMessage(registered);
                     this.router.navigateByUrl('/login');
                     alert('User created successfully!');
                 }

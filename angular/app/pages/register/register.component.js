@@ -11,11 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var authentication_service_1 = require('../../services/authentication.service');
-var websocket_service_1 = require('../../services/websocket.service');
 var user_1 = require('../../models/user');
 var RegisterComponent = (function () {
-    function RegisterComponent(webSocketService, authenticationService, router) {
-        this.webSocketService = webSocketService;
+    function RegisterComponent(authenticationService, router) {
         this.authenticationService = authenticationService;
         this.router = router;
         this.user = new user_1.User('', '', '', '', 0, 0, '', '', '', '');
@@ -33,7 +31,7 @@ var RegisterComponent = (function () {
                 }
                 else {
                     _this.isRegisterFailed = false;
-                    //this.webSocketService.sendRegisterMessage(registered);
+                    //this.gameService.sendRegisterMessage(registered);
                     _this.router.navigateByUrl('/login');
                     alert('User created successfully!');
                 }
@@ -50,7 +48,7 @@ var RegisterComponent = (function () {
             templateUrl: './register.component.html',
             styleUrls: ['./register.component.css']
         }), 
-        __metadata('design:paramtypes', [websocket_service_1.WebSocketService, authentication_service_1.AuthenticationService, router_1.Router])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.Router])
     ], RegisterComponent);
     return RegisterComponent;
 }());

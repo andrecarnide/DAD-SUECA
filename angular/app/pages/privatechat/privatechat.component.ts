@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WebSocketService } from '../../services/websocket.service';
+import { GameService } from '../../services/game.service';
 
 @Component({
   moduleId: module.id,
@@ -7,18 +7,18 @@ import { WebSocketService } from '../../services/websocket.service';
   templateUrl: './privatechat.component.html',
   styleUrls: ['./privatechat.component.css']
 })
-export class PrivateChatComponent {
+export class PrivateChatComponent implements OnInit{
   message: string;
   privateChat: string[] = [];
 
-  constructor(private websocketService: WebSocketService) { }
+  constructor(private gameService: GameService) { }
 
   ngOnInit() {
-    this.websocketService.getPrivateGameChatMessages().subscribe((response:any) => this.privateChat.push(<string>response));
+    this.gameService.getPrivateGameChatMessages().subscribe((response:any) => this.privateChat.push(<string>response));
   }
 
   send(): void {
-    this.websocketService.sendPrivateGameChatMessage(this.websocketService.getPrivateGame(), this.message);
+    this.gameService.sendPrivateGameChatMessage(this.gameService.getPrivateGame(), this.message);
     this.message = '';
   }
 }

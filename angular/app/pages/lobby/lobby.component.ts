@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import { WebSocketService } from '../../services/websocket.service';
+import { GameService } from '../../services/game.service';
 
 import { Game } from '../../models/game';
 
@@ -18,23 +18,14 @@ export class LobbyComponent implements OnInit {
 
   game = new Game('','','','','','','','',[{}]);
 
-  constructor(private authenticationService: AuthenticationService, private webSocketService: WebSocketService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private gameService: GameService, private router: Router) { }
 
   ngOnInit() {
-    this.getNewGame();
-    this.getPendingGames();
-    this.getRefresh();
-    this.getStartGame();
-  }
-
-  getNewGame(): void {
-    this.webSocketService.getNewGame().subscribe((response: any) => {
+    this.gameService.getNewGame().subscribe((response: any) => {
       this.otherGames.push(response);
     });
-  }
 
-  getPendingGames(): void {
-    this.webSocketService.getPendingGames(this.authenticationService.user).subscribe(response => {
+    this.gameService.getPendingGames(this.authenticationService.user).subscribe(response => {
       response.forEach(game => {
         if (game.creatorId == this.authenticationService.user._id) {
           this.myGames.push(game);
@@ -43,28 +34,23 @@ export class LobbyComponent implements OnInit {
         }
       });
     });
-  }
 
-  getRefresh(): void {
-    this.webSocketService.getRefresh().subscribe((response: any) => {
+    this.gameService.getRefresh().subscribe((response: any) => {
       this.myGames = [];
       this.otherGames = [];
       this.refresh();
     });
-  }
 
-  getStartGame(): void {
-    this.webSocketService.getStartGame().subscribe((response: any) => {
-      this.webSocketService.setPrivateGame(response._id);
-      this.webSocketService.sendNumberOfPlayers(response);
-      this.router.navigateByUrl('/game');
+    this.gameService.getStartGame().subscribe((response: any) => {
+      this.gameService.setPrivateGame(response._id);
+      this.router.navigateByUrl('/game/'+response._id);
     });
   }
 
   createGame(): void {
-    this.webSocketService.createNewGame(this.authenticationService.user, this.game).subscribe((response: any) => {
+    this.gameService.createNewGame(this.authenticationService.user, this.game).subscribe((response: any) => {
       if (response) {
-        this.webSocketService.createGame(response);
+        this.gameService.createGame(response, this.authenticationService.user);
         this.myGames.push(response);
       } else {
         console.error('Error. Impossible create game.');
@@ -73,7 +59,7 @@ export class LobbyComponent implements OnInit {
   }
 
   refresh() {
-    this.webSocketService.getPendingGames(this.authenticationService.user).subscribe(response => {
+    this.gameService.getPendingGames(this.authenticationService.user).subscribe(response => {
       this.myGames = [];
       this.otherGames = [];
 

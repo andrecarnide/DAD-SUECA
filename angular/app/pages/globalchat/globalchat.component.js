@@ -8,31 +8,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var websocket_service_1 = require("../../services/websocket.service");
+var core_1 = require('@angular/core');
+var game_service_1 = require('../../services/game.service');
 var GlobalChatComponent = (function () {
-    function GlobalChatComponent(websocketService) {
-        this.websocketService = websocketService;
+    function GlobalChatComponent(gameService) {
+        this.gameService = gameService;
         this.chatChannel = [];
     }
     GlobalChatComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.websocketService.getChatMessages().subscribe(function (response) { return _this.chatChannel.push(response); });
+        this.gameService.getChatMessages().subscribe(function (response) { return _this.chatChannel.push(response); });
     };
     GlobalChatComponent.prototype.send = function () {
-        this.websocketService.sendChatMessage(this.message);
+        this.gameService.sendChatMessage(this.message);
         this.message = '';
     };
+    GlobalChatComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'app-home',
+            templateUrl: './globalchat.component.html',
+            styleUrls: ['./globalchat.component.css']
+        }), 
+        __metadata('design:paramtypes', [game_service_1.GameService])
+    ], GlobalChatComponent);
     return GlobalChatComponent;
 }());
-GlobalChatComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'app-home',
-        templateUrl: './globalchat.component.html',
-        styleUrls: ['./globalchat.component.css']
-    }),
-    __metadata("design:paramtypes", [websocket_service_1.WebSocketService])
-], GlobalChatComponent);
 exports.GlobalChatComponent = GlobalChatComponent;
 //# sourceMappingURL=globalchat.component.js.map

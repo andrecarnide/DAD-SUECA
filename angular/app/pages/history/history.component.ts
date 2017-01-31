@@ -13,9 +13,8 @@ import { Game } from '../../models/game';
 export class HistoryComponent implements OnInit {
     allHistoryGames: Game[] = [];
     myHistoryGames: Game[] = [];
-    value: string = '';
-    state: string = '';
-    hideTableMyHistory: boolean = false;
+    textButtonMyHistory: string = 'Show My History';
+    hideTableMyHistory: boolean = true;
 
     constructor(private historyService: HistoryService, private auth: AuthenticationService) {
         this.auth = auth;
@@ -23,7 +22,6 @@ export class HistoryComponent implements OnInit {
 
     ngOnInit() {
         this.getHistory();
-        this.getMyHistory();
     }
 
     getHistory(): void {
@@ -31,6 +29,7 @@ export class HistoryComponent implements OnInit {
     }
 
     getMyHistory(): void {
+        this.myHistoryGames = [];
         this.historyService.getHistoryGames().subscribe(response => {
             response.forEach(game => {
                 if (game.creatorId == this.auth.user._id) {
@@ -41,11 +40,15 @@ export class HistoryComponent implements OnInit {
     }
 
     toggleTableMyHistory(): void {
+        this.getMyHistory();
         if (this.hideTableMyHistory) {
             this.hideTableMyHistory = false;
+            this.textButtonMyHistory = 'Hide My History';
         }
-        else
+        else {
             this.hideTableMyHistory = true;
+            this.textButtonMyHistory = 'Show My History';
+        }
     }
 
     setFinished(state: string): string {

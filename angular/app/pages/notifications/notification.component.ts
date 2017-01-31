@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WebSocketService } from '../../services/websocket.service';
+import { GameService } from '../../services/game.service';
 
 @Component({
     moduleId: module.id,
@@ -12,10 +12,9 @@ import { WebSocketService } from '../../services/websocket.service';
 export class NotificationComponent implements OnInit {
     playersChannel: string[] = [];
 
-
-    constructor(private websocketService: WebSocketService){ }
+    constructor(private gameService: GameService){ }
 
     ngOnInit() {
-        this.websocketService.getPlayersMessages().subscribe((response:any) => this.playersChannel.push(<string>response));
+        this.gameService.getPlayersMessages().subscribe((response:any) => this.playersChannel.push(<string>response));
     }
 }

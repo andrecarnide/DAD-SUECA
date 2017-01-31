@@ -8,27 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var websocket_service_1 = require("../../services/websocket.service");
+var core_1 = require('@angular/core');
+var game_service_1 = require('../../services/game.service');
 var NotificationComponent = (function () {
-    function NotificationComponent(websocketService) {
-        this.websocketService = websocketService;
+    function NotificationComponent(gameService) {
+        this.gameService = gameService;
         this.playersChannel = [];
     }
     NotificationComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.websocketService.getPlayersMessages().subscribe(function (response) { return _this.playersChannel.push(response); });
+        this.gameService.getPlayersMessages().subscribe(function (response) { return _this.playersChannel.push(response); });
     };
+    NotificationComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'notification-panel',
+            templateUrl: './notification.component.html',
+            styleUrls: ['./notification.component.css']
+        }), 
+        __metadata('design:paramtypes', [game_service_1.GameService])
+    ], NotificationComponent);
     return NotificationComponent;
 }());
-NotificationComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'notification-panel',
-        templateUrl: './notification.component.html',
-        styleUrls: ['./notification.component.css']
-    }),
-    __metadata("design:paramtypes", [websocket_service_1.WebSocketService])
-], NotificationComponent);
 exports.NotificationComponent = NotificationComponent;
 //# sourceMappingURL=notification.component.js.map

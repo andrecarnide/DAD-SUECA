@@ -7,18 +7,18 @@
         <div class="col-xs-2">
             <div class="box box-default">
                 <div class="box-header with-border">
-                    <i class="fa fa-thumbs-up"></i>
+                    <i class="fa fa-hand-stop-o"></i>
 
                     <h3 class="box-title">Trump Suit</h3>
                 </div>
                 <div class="box-body">
                     <div class="col-xs-12 center">
-                        <img [src]="deck.trumpSuit">
+                        <img [src]="trumpSuit">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-10">
+        <div class="col-xs-8">
             <div class="box box-default">
                 <div class="box-header with-border">
                     <i class="fa fa-hand-pointer-o"></i>
@@ -27,49 +27,56 @@
                 </div>
                 <div class="box-body">
                     <div class="col-xs-12">
-                        <!--<div class="left" *ngFor="let card of deck.cards"><img [src]="card.getImageName()"></div>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="box-body">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <i class="fa fa-arrow-right"></i>
-
-                    <h3 class="box-title">Player 1</h3>
-                </div>
-                <div class="box-body">
-                    <div class="col-xs-12">
-                        <div class="left" *ngFor="let card of deck.cardsPlayer1"><img [src]="card.getImageName()"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="box-body">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <i class="fa fa-arrow-right"></i>
-                    <h3 class="box-title">Player 2</h3>
-                </div>
-                <div class="box-body">
-                    <div class="col-xs-12">
-                        <div class="left" *ngFor="let card of deck.cardsPlayer2"><img [src]="card.getImageName()">
+                        <div class="left" *ngFor="let card of roundTableCards">
+                            <div class="box-body box-profile">
+                                <img [src]="card.getImageName()">
+                                <!--Em falta!-->
+                                <img class="profile-user-img img-sm img-circle" [src]="myUser.avatar">
+                                <!--<p class="text-center"> {{myUser.username}}</p>-->
+                                <p class="text-center"> user</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-xs-2">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-info"></i>
+
+                    <h3 class="box-title">Information</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12 center">
+                        <!--Em falta!-->
+                        <!--<b>Team A</b><div *ngFor="let user of teamA"> {{user.username}}</div>
+                        <b>Team B</b><div *ngFor="let user of teamB"> {{user.username}}</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+
+                    <h3 class="box-title">{{myUser.username}} [Me]</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="left" *ngFor="let card of myCards"><img [src]="card.getImageName()"
+                                                                            (click)="playCard(card)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -79,13 +86,12 @@
             <div class="box box-default">
                 <div class="box-header with-border">
                     <i class="fa fa-arrow-right"></i>
-
-                    <h3 class="box-title">Player 3</h3>
+                    <h3 class="box-title">Team</h3>
                 </div>
                 <div class="box-body">
                     <div class="col-xs-12">
-                        <div class="left" *ngFor="let card of deck.cardsPlayer3"><img [src]="card.getImageName()">
-                        </div>
+                        <div class="left" *ngFor="let cardsBack of cardsBack"><img
+                                src="../../../assets/img/cards/back.png"></div>
                     </div>
                 </div>
             </div>
@@ -100,11 +106,32 @@
                 <div class="box-header with-border">
                     <i class="fa fa-arrow-right"></i>
 
-                    <h3 class="box-title">Player 4</h3>
+                    <h3 class="box-title">Opponent</h3>
                 </div>
                 <div class="box-body">
                     <div class="col-xs-12">
-                        <div class="left" *ngFor="let card of deck.cardsPlayer4"><img [src]="card.getImageName()"></div>
+                        <div class="left" *ngFor="let cardsBack of cardsBack"><img
+                                src="../../../assets/img/cards/back.png"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <i class="fa fa-arrow-right"></i>
+
+                    <h3 class="box-title">Opponent</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="left" *ngFor="let cardsBack of cardsBack"><img
+                                src="../../../assets/img/cards/back.png"></div>
                     </div>
                 </div>
             </div>

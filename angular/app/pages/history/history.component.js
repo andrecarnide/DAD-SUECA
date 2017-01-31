@@ -8,23 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var history_service_1 = require("../../services/history.service");
-var authentication_service_1 = require("../../services/authentication.service");
+var core_1 = require('@angular/core');
+var history_service_1 = require('../../services/history.service');
+var authentication_service_1 = require('../../services/authentication.service');
 var HistoryComponent = (function () {
     function HistoryComponent(historyService, auth) {
         this.historyService = historyService;
         this.auth = auth;
         this.allHistoryGames = [];
         this.myHistoryGames = [];
-        this.value = '';
-        this.state = '';
-        this.hideTableMyHistory = false;
+        this.textButtonMyHistory = 'Show My History';
+        this.hideTableMyHistory = true;
         this.auth = auth;
     }
     HistoryComponent.prototype.ngOnInit = function () {
         this.getHistory();
-        this.getMyHistory();
     };
     HistoryComponent.prototype.getHistory = function () {
         var _this = this;
@@ -32,6 +30,7 @@ var HistoryComponent = (function () {
     };
     HistoryComponent.prototype.getMyHistory = function () {
         var _this = this;
+        this.myHistoryGames = [];
         this.historyService.getHistoryGames().subscribe(function (response) {
             response.forEach(function (game) {
                 if (game.creatorId == _this.auth.user._id) {
@@ -41,11 +40,15 @@ var HistoryComponent = (function () {
         });
     };
     HistoryComponent.prototype.toggleTableMyHistory = function () {
+        this.getMyHistory();
         if (this.hideTableMyHistory) {
             this.hideTableMyHistory = false;
+            this.textButtonMyHistory = 'Hide My History';
         }
-        else
+        else {
             this.hideTableMyHistory = true;
+            this.textButtonMyHistory = 'Show My History';
+        }
     };
     HistoryComponent.prototype.setFinished = function (state) {
         if (state == 'ended') {
@@ -55,16 +58,16 @@ var HistoryComponent = (function () {
             return 'No';
         }
     };
+    HistoryComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'app-home',
+            templateUrl: './history.component.html',
+            styleUrls: ['./history.component.css']
+        }), 
+        __metadata('design:paramtypes', [history_service_1.HistoryService, authentication_service_1.AuthenticationService])
+    ], HistoryComponent);
     return HistoryComponent;
 }());
-HistoryComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'app-home',
-        templateUrl: './history.component.html',
-        styleUrls: ['./history.component.css']
-    }),
-    __metadata("design:paramtypes", [history_service_1.HistoryService, authentication_service_1.AuthenticationService])
-], HistoryComponent);
 exports.HistoryComponent = HistoryComponent;
 //# sourceMappingURL=history.component.js.map

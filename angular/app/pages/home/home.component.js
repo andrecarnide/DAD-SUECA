@@ -15,8 +15,6 @@ var HomeComponent = (function () {
         this.auth = auth;
         this.auth = auth;
     }
-    HomeComponent.prototype.ngOnInit = function () {
-    };
     HomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
