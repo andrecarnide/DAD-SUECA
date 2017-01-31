@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var authentication_service_1 = require("./authentication.service");
+var core_1 = require('@angular/core');
+var authentication_service_1 = require('./authentication.service');
 var GuardService = (function () {
     function GuardService(authentication) {
         this.authentication = authentication;
@@ -17,11 +17,11 @@ var GuardService = (function () {
     GuardService.prototype.canActivate = function () {
         return this.authentication.isAuthenticated();
     };
+    GuardService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService])
+    ], GuardService);
     return GuardService;
 }());
-GuardService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [authentication_service_1.AuthenticationService])
-], GuardService);
 exports.GuardService = GuardService;
 //# sourceMappingURL=guard.service.js.map

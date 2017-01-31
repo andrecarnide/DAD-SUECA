@@ -7,7 +7,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import {Game} from '../models/game';
-import {User} from "../models/user";
 
 @Injectable()
 export class HistoryService {

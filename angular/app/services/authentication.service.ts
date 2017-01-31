@@ -27,25 +27,14 @@ export class AuthenticationService {
             });
     }
 
-    loginFace(): Observable<User> {
-        return this.http.post('http://localhost:7777/api/v1/facebook', {})
-            .map(response => {
-                this.user = <User>response.json();
-                return this.user;
-            })
-            .catch(exception => {
-                console.log(exception);
-                return Observable.of<User>(null);
-            });
-    }
-
     logout(): Observable<any> {
         let options = this.buildHeaders();
 
-        return this.http.post('http://localhost:7777/api/v1/logout', options)
+        return this.http.post('http://localhost:7777/api/v1/logout',{},options)
             .map(response => {
                 response.json();
                 this.user = null;
+                sessionStorage.clear();
                 return this.user;
             })
             .catch(exception => {
